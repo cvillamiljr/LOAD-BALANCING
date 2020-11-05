@@ -86,18 +86,66 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 **Preguntas**
 
 1. ¿Cuántos y cuáles recursos crea Azure junto con la VM?
+> Se crean 5 elementos sin contar la maquina virtual.
+> - **Red**
+> - **Ip Publica**
+> - **Security Group**
+> - **Interface de Red**
+> - **Disco**
 2. ¿Brevemente describa para qué sirve cada recurso?
+> - **Red:** La Vnet a la que la ip privada hará parte.
+> - **Ip Publica:** La ip publica con la que vamos a poder acceder a la VM
+> - **Security Group:** Controlar el trafico de la red y los recursos que pertenecen al mismo grupo de seguridad
+> - **Interface de Red:** Permite que la VM tenga conexion a internet y conexion a recursos locales.
+> - **Disco:** La capacidad de la VM
+
 3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando `npm FibonacciApp.js`? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?
+
+> Porque estamos corriendo la aplicación en la maquina virtual y para poder hacer peticiones a la aplicación desde el navegador debemos tener en cuenta dos puntos importantes:
+> - Debe estar corriendo la aplicacion
+> - La maquina virtual debe permitir el trafico por el puerto que deseemos y por eso se debe crear una regla de entrada para poder permitir este trafico.
+
 4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.
+
+> ![](images/part1/speedTest.png)
+
+> Porque los recursos de la maquina virtual son muy limitados y es una aplicacion que consume muchos recursos.
+
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
+
+> ![](images/part1/cpuPerformance.png)
+
+Fibonacci es una aplicación recursiva y necesita bastante CPU para poder realizar tantos calculos.
+
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
+
+> ![](images/part1/newManPart1.png)
+
     * Tiempos de ejecución de cada petición.
+
+> ![](images/part1/newMan.png)
+    
     * Si hubo fallos documentelos y explique.
+
 7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
+
+> Apesar que la capacidad de la maquina aumenta logicamente aunmenta el costo de la maquina virtual ya que el desempeño de la maquina virtual será mucho mas eficiente.
+
 8. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?
+
+> En este escenario mejoró el desempeño reduciendo los tiempos de ejecución pero no se logró ver un cambio significativo en el desempeño a nivel de CPU
+
 9. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?
+
+> Como el tamaño de la maquina se cambio con ello se modifican otros recursos que hacen parte de la maquina como el Disco y esto puede ocasionar que lo que estemos haciendo en la VM este inhabilitado mientras los cambios se realizan de forma
+
 10. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
+
+> Si hubo mejora tanto en los tiempos de respuesta como en el uso de la CPU aunque en este ultimo no se notaron cambios realmente representativos.
+
 11. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?
+
+> En esta ocasion los resultados arrojados fueron exactamente los mismos.
 
 ### Parte 2 - Escalabilidad horizontal
 
